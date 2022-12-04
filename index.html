@@ -8,7 +8,8 @@
         
     }
 nav{
-    padding: 50px;
+    padding: 25px;
+    background-color: #4A1FA6;
 }
 
 .chart{
@@ -104,10 +105,7 @@ function removeData(chart) {
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("onConnect");
-  client.subscribe("World");
-  message = new Paho.MQTT.Message("Hello");
-  message.destinationName = "World";
-  client.send(message);
+  client.subscribe("analog");
 }
 
 // called when the client loses its connection
@@ -120,5 +118,7 @@ function onConnectionLost(responseObject) {
 // called when a message arrives
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
+  date = new Date;
+  addData(ch,date.getHours()+":"+date.now.getMinutes(),number(menssage.payloadString));
 }
 </script>
